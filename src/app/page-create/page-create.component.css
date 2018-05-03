@@ -1,0 +1,16 @@
+.form-margin{
+    width: 300px;
+    padding: 25px;
+    box-sizing: border-box;
+}
+.mat-slider-horizontal {
+    width: 50%;
+  }
+  /* these methods when uncommented will set a line next to the form items to tell if valid or not.
+  .ng-valid[required], .ng-valid.required  {
+    border-left: 5px solid #42A948;
+  }
+  
+  .ng-invalid:not(form)  {
+    border-left: 5px solid #a94442;
+  }*/
