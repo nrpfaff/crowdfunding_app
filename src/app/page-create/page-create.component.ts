@@ -22,6 +22,7 @@ export class PageCreateComponent {
   modalOption: NgbModalOptions = {};
 
   addPage(){
+
     /* call this.properties and pass them to http service
     will need to create http method to send data to backend
     backend will need new method in products controller/model to insert values into db for page
