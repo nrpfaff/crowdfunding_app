@@ -1,0 +1,71 @@
+<nav class="navbar mr-auto navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="navbar-brand" [routerLink]="['/home']">Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="navbar-brand"[routerLink]="['/search']">Find a Project</a>
+            </li>
+            <li class="nav-item active">
+                <a class="navbar-brand" [routerLink]="['/page-create']">Start a Project</a>
+            </li>
+            <li class="nav-item active">
+                <a class="navbar-brand" [routerLink]="['/account-home']">My Account</a>
+            </li>
+            <li *ngIf="authService.getUser()" class="nav-item active">
+                <a class="navbar-brand"href (click)="this.authService.logout()">Sign out</a>
+            </li>
+            <li *ngIf="!authService.getUser()" class="nav-item active">
+                    <a class="navbar-brand"href [routerLink]="['/login']">Sign in</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<div align="right" *ngIf="authService.getUser()">Logged in as <b>{{ authService.getUser() }}</b></div>
+<form (ngSubmit)="addPage()" #pageForm ="ngForm">
+    <div align="Center" class="form-group">
+        <label for="title">Project Title</label>
+        <input class="col-3 form-control" type="title" [(ngModel)]="title" name="title" placeholder="Enter Project Title" required #titlePage="ngModel">
+        <div [hidden]="titlePage.valid || titlePage.pristine" class="alert alert-danger">Title is required</div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="form-margin">
+            <label for="fundsNeeded">Funds Desired</label>
+            <mat-slider class="mat-slider-horizontal" [(ngModel)]="fundsNeeded" min="25" max="10000" step="25" value="1500" thumbLabel name="fundsNeeded" required></mat-slider>
+            <small id="funds_info" class="form-text text-muted">Values between $25 and $10,000 in increments of $25</small>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-form-field class="form-margin">
+        <mat-select placeholder="Select Category" [(ngModel)]="category" name="category" required>
+            <mat-option value="Biological Science">Biological Science</mat-option>
+            <mat-option value="Chemistry">Chemistry</mat-option>
+            <mat-option value="Computer Science">Computer Science</mat-option>
+            <mat-option value="Geography, Geology, and Environmental Science">Geography, Geology, and Environmental Science</mat-option>
+            <mat-option value="History">History</mat-option>
+            <mat-option value="Language and Literatures">Language and Literatures</mat-option>
+            <mat-option value="Mathmatics">Mathmatics</mat-option>
+            <mat-option value="Philosophy and Religous Studies">Philosophy and Religous Studies</mat-option>
+            <mat-option value="Physics">Physics</mat-option>
+            <mat-option value="Political Science">Political Science</mat-option>
+            <mat-option value="Psychology">Psychology</mat-option>
+            <mat-option value="Sociology, Criminology and Anthropology">Sociology, Criminology and Anthropology</mat-option>
+            <mat-option value="Social Work">Social Work</mat-option>
+            <mat-option value="Women and Gender Studies">Women and Gender Studies</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-divider></mat-divider>
+    <div class="form-margin">
+        <label for="description">Description: </label>
+        <textarea [(ngModel)]="description" rows="4" cols="100" name="description" required #descriptionPage="ngModel"></textarea>
+        <div [hidden]="descriptionPage.valid || descriptionPage.pristine" class="alert alert-danger">Description is required</div>
+    </div>
+    <button class="btn btn-success" type="submit" (click)='confirmAction("Successfully created Project",title," is now pending approval"); addPage()'>Submit</button>
+</form>
