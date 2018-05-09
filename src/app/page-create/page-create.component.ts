@@ -7,28 +7,40 @@ import 'hammerjs';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap/modal/modal';
 import { MessageComponent } from '../message/message.component';
-
+import { HttpService } from '../http.service';
 @Component({
   selector: 'app-page-create',
   templateUrl: './page-create.component.html',
   styleUrls: ['./page-create.component.css']
 })
 export class PageCreateComponent {
-  constructor(public authService: AuthService, public modalService: NgbModal){}
+  constructor(public authService: AuthService, public modalService: NgbModal, public apiService: HttpService){}
   title: string;
   fundsNeeded: number;
+  fundedAmount: number;
   description: string;
   category: string;
+  approved: boolean = false;
   modalOption: NgbModalOptions = {};
 
   addPage(){
-    console.log("Hit!");
+    console.log(this.category);
+    console.log(this.description);
+    console.log(this.title);
+    console.log(this.fundsNeeded);
+    console.log(this.approved);
+    const fundedAmount = 0;
+    const userId = this.authService.getUserId();
+    console.log(userId);
+    this.apiService.addNewPage(this.title, this.description, this.fundedAmount, this.fundsNeeded, this.category).subscribe( response => {
+      console.log(response);
+    });
     /* call this.properties and pass them to http service
     will need to create http method to send data to backend
     backend will need new method in products controller/model to insert values into db for page
     next work on finding pages after a few items have been inserted into the bd. Note: page_id auto incremented in db and fundedAmount==0 @ start
     (all other fileds have a value in thi class)
-    */ 
+    */
   }
   confirmAction(title, item, task) {
     this.modalOption.backdrop = 'static';
@@ -42,5 +54,5 @@ export class PageCreateComponent {
                     // Do something with the result and 'item'
     });
   }
-  
+
 }
