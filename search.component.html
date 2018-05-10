@@ -1,0 +1,62 @@
+<nav class="navbar mr-auto navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="navbar-brand" [routerLink]="['/home']">Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="navbar-brand"[routerLink]="['/search']">Find a Project</a>
+            </li>
+            <li class="nav-item active">
+                <a class="navbar-brand" [routerLink]="['/page-create']">Start a Project</a>
+            </li>
+            <li class="nav-item active">
+                <a class="navbar-brand" [routerLink]="['/account-home']">My Account</a>
+            </li>
+            <li *ngIf="authService.getUser()" class="nav-item active">
+                <a class="navbar-brand"href (click)="this.authService.logout()">Sign out</a>
+            </li>
+            <li *ngIf="!authService.getUser()" class="nav-item active">
+                    <a class="navbar-brand"href [routerLink]="['/login']">Sign in</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<div align="right" *ngIf="authService.getUser()">Logged in as <b>{{ authService.getUser() }}</b></div>
+    <mat-divider></mat-divider>
+<mat-form-field class="form-margin">
+    <mat-select placeholder="Select Category" [(ngModel)]="selectedCategory" name="category" (change)='displayCategorySchedule()'>
+        <mat-option value="Biological Science">Biological Science</mat-option>
+        <mat-option value="Chemistry">Chemistry</mat-option>
+        <mat-option value="Computer Science">Computer Science</mat-option>
+        <mat-option value="Geography, Geology, and Environmental Science">Geography, Geology, and Environmental Science</mat-option>
+        <mat-option value="History">History</mat-option>
+        <mat-option value="Language and Literatures">Language and Literatures</mat-option>
+        <mat-option value="Mathmatics">Mathmatics</mat-option>
+        <mat-option value="Philosophy and Religous Studies">Philosophy and Religous Studies</mat-option>
+        <mat-option value="Physics">Physics</mat-option>
+        <mat-option value="Political Science">Political Science</mat-option>
+        <mat-option value="Psychology">Psychology</mat-option>
+        <mat-option value="Sociology, Criminology and Anthropology">Sociology, Criminology and Anthropology</mat-option>
+        <mat-option value="Social Work">Social Work</mat-option>
+        <mat-option value="Women and Gender Studies">Women and Gender Studies</mat-option>
+    </mat-select>
+</mat-form-field>
+    <mat-divider></mat-divider>
+    <div *ngIf='schedules'>
+    <h4>Selected Category: {{selectedCategory}}</h4>
+
+    <table>
+      <tr *ngFor='let item of schedules'>
+        <td>{{ item.title }}</td>
+        <td>{{ item.description }}</td>
+      </tr>
+    </table>
+  </div>
