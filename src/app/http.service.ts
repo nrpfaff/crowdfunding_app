@@ -14,6 +14,20 @@ getCategoryList() { return this.http.get<any>( this.apiUrl + 'search/categoryLis
 // define a method to fetch schedule for a given category
 getCategorySchedule(selectedCategory: string) { return this.http.get<any>(this.apiUrl + 'search/getCategorySchedule/' + selectedCategory); }
 
+addNewPage(title, description, fundedAmount, fundsNeeded, category){
+  return this.http.post<any>(this.apiUrl + 'pagecreate/addpage',
+  JSON.stringify({ title: title, description: description, fundedAmount: fundedAmount, fundsNeeded: fundsNeeded, category: category }));
+}
+
+/*getAccount(){
+    return this.http.post<any>(this.apiUrl + 'account-home/getUser/');
+}*/
+
+updateUserInfo(user_id){
+    return this.http.post<any>(this.apiUrl + 'account/updateUserInfo',
+  JSON.stringify({ userid: user_id }));
+}
+
 
 /* sample method to pass selection info via post
 addToMyCart(member_id, sid){

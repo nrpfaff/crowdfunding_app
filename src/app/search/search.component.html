@@ -30,3 +30,33 @@
     </div>
 </nav>
 <div align="right" *ngIf="authService.getUser()">Logged in as <b>{{ authService.getUser() }}</b></div>
+<mat-divider></mat-divider>
+<mat-form-field class="form-margin">
+    <mat-select placeholder="Select Category" [(ngModel)]="selectedCategory" name="category" (change)='displayCategorySchedule()'>
+        <mat-option value="Biological Science">Biological Science</mat-option>
+        <mat-option value="Chemistry">Chemistry</mat-option>
+        <mat-option value="Computer Science">Computer Science</mat-option>
+        <mat-option value="Geography, Geology, and Environmental Science">Geography, Geology, and Environmental Science</mat-option>
+        <mat-option value="History">History</mat-option>
+        <mat-option value="Language and Literatures">Language and Literatures</mat-option>
+        <mat-option value="Mathmatics">Mathmatics</mat-option>
+        <mat-option value="Philosophy and Religous Studies">Philosophy and Religous Studies</mat-option>
+        <mat-option value="Physics">Physics</mat-option>
+        <mat-option value="Political Science">Political Science</mat-option>
+        <mat-option value="Psychology">Psychology</mat-option>
+        <mat-option value="Sociology, Criminology and Anthropology">Sociology, Criminology and Anthropology</mat-option>
+        <mat-option value="Social Work">Social Work</mat-option>
+        <mat-option value="Women and Gender Studies">Women and Gender Studies</mat-option>
+    </mat-select>
+</mat-form-field>
+    <mat-divider></mat-divider>
+    <div *ngIf='schedules'>
+    <h4>Selected Category: {{selectedCategory}}</h4>
+    <table>
+      <tr *ngFor='let item of schedules'>
+        <td>{{ item.title }}</td>
+        <td>{{ item.description }}</td>
+      </tr>
+    </table>
+  </div>
+
