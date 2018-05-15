@@ -30,7 +30,7 @@
     </div>
 </nav>
 <div align="right" *ngIf="authService.getUser()">Logged in as <b>{{ authService.getUser() }}</b></div>
-<form (ngSubmit)="addPage()" #pageForm ="ngForm"> 
+<form (ngSubmit)="addPage(page_id, title, description, fundedAmount, fundsNeeded, category, date_created, date_end); projectsize(); pagestatus()" #pageForm ="ngForm">
     <div align="Center" class="form-group">
         <label for="title">Project Title</label>
         <input class="col-3 form-control" type="title" [(ngModel)]="title" name="title" placeholder="Enter Project Title" required #titlePage="ngModel">
@@ -67,7 +67,5 @@
         <textarea [(ngModel)]="description" rows="4" cols="100" name="description" required #descriptionPage="ngModel"></textarea>
         <div [hidden]="descriptionPage.valid || descriptionPage.pristine" class="alert alert-danger">Description is required</div>
     </div>
-    <button class="btn btn-success" type="submit" [disabled]="!pageForm.form.valid" (click)='confirmAction("Successfully created Project",title,"now peneding")'>Submit</button>
+    <button class="btn btn-success" type="submit" [disabled]="!pageForm.form.valid" (click)='confirmAction("Successfully created Project",title,"now pending")'>Submit</button>
 </form>
-
-
