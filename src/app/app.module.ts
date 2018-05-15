@@ -27,6 +27,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDividerModule} from '@angular/material/divider';
 import 'hammerjs';
+import { ConfirmUpdateComponent } from './confirm-update/confirm-update.component';
+import { ConfirmEditComponent } from './confirm-edit/confirm-edit.component';
+import {DatePipe} from '@angular/common';
+import { ApprovalComponent } from './approval/approval.component';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +45,10 @@ import 'hammerjs';
     PageCreateComponent,
     PageDataComponent,
     PageDonateComponent,
-    PageStatusComponent
+    PageStatusComponent,
+    ConfirmUpdateComponent,
+    ConfirmEditComponent,
+    ApprovalComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -54,8 +62,8 @@ import 'hammerjs';
     MatGridListModule,
     MatDividerModule
   ],
-  entryComponents: [MessageComponent],
-  providers: [AuthService, LoggedInGuard, HttpService],
+  entryComponents: [MessageComponent, ConfirmUpdateComponent, ConfirmEditComponent, ApprovalComponent],
+  providers: [AuthService, LoggedInGuard, HttpService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
