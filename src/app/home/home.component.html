@@ -1,0 +1,48 @@
+<nav class="navbar mr-auto navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="navbar-brand" [routerLink]="['/home']">Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="navbar-brand"[routerLink]="['/search']">Find a Project</a>
+            </li>
+            <li class="nav-item active">
+                <a class="navbar-brand" [routerLink]="['/page-create']">Start a Project</a>
+            </li>
+            <li class="nav-item active">
+                <a class="navbar-brand" [routerLink]="['/account-home']">My Account</a>
+            </li>
+            <li *ngIf="authService.getUser()" class="nav-item active">
+                <a class="navbar-brand"href (click)="this.authService.logout()">Sign out</a>
+            </li>
+            <li *ngIf="!authService.getUser()" class="nav-item active">
+                    <a class="navbar-brand"href [routerLink]="['/login']">Sign in</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<div align="right" *ngIf="authService.getUser()">Logged in as <b>{{ authService.getUser() }}</b></div>
+<h2>Willie's Hawk Fund</h2>
+<p>Welcome! This website is a prototype/barebones of a UW-Whitewater in-house crowdfund service. This service is designed to help research projects gain additional funding through donations of outside sources. Only UW-Whitewater students
+    can create a page. Pages created and edited are subject to approval by a UW-Whitewater administrator.</p>
+
+<div class="row">
+  <div class="column" style="background-color:#aaa;" load="trending()"  [routerLink]="['/search']">
+    <h3> Search a Category to Donate to a Project!</h3>
+    <div *ngFor="let item of projects">
+      <h2>Trending Project</h2>
+    <h3>Title: {{item.title}}</h3>
+  </div>
+</div>
+  <div class="column" style="background-color:#bbb;">
+    <h2>Success Stories</h2>
+    <h3>Willie from Whitewater - </h3><h4>I really didn't know what to expect! I'm $10000 richer! 10/10</h4>
+  </div>

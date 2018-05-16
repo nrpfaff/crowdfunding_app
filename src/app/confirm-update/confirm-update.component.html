@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <h2 class="modal-title">{{title}}</h2>
+</div>
+<div class="modal-body">
+
+  <h5>The following account information will be updated:</h5>
+  <p><strong>Userame:</strong> {{username}}</p>
+  <p><strong>Name:</strong> {{first_name}} {{last_name}}</p>
+  <p><strong>Phone:</strong> {{phone}}</p>
+  <p><strong>Email:</strong> {{email}}</p>
+
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-success" (click)="modalService.close('1')">Update Account Information</button>
+  <button type="button" class="btn btn-danger" (click)="modalService.close('0')">Cancel</button>
+</div>

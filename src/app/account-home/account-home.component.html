@@ -1,0 +1,99 @@
+<nav class="navbar mr-auto navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="navbar-brand" [routerLink]="['/home']">Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="navbar-brand"[routerLink]="['/search']">Find a Project</a>
+            </li>
+            <li class="nav-item active">
+                <a class="navbar-brand" [routerLink]="['/page-create']">Start a Project</a>
+            </li>
+            <li class="nav-item active">
+                <a class="navbar-brand" [routerLink]="['/account-home']">My Account</a>
+            </li>
+            <li *ngIf="authService.getUser()" class="nav-item active">
+                <a class="navbar-brand"href (click)="this.authService.logout()">Sign out</a>
+            </li>
+            <li *ngIf="!authService.getUser()" class="nav-item active">
+                    <a class="navbar-brand"href [routerLink]="['/login']">Sign in</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<div align="right" *ngIf="authService.getUser()">Logged in as <b>{{ authService.getUser() }}</b></div>
+  <div>
+  <button class='btn btn-primary' (click)="getMemberInfo()">Account Info</button>
+  <div *ngIf="Membervisible">
+  <div *ngFor='let item of account; let idx = index'>
+  <!-- define a property (idx) to keep track of the index of each schedule. This will help us
+  identify the selected schedule. -->
+
+  <p>User ID: {{ item.user_id }}</p>
+  <p>Username: {{ item.username }}</p>
+  <p>First Name: {{ item.first_name }}</p>
+  <p>Last Name: {{ item.last_name }}</p>
+  <p>Phone: {{ item.phone }}</p>
+  <p>Email: {{ item.email }}</p>
+</div>
+
+
+
+
+
+<form (ngSubmit)="onSubmit()" *ngIf="account; Membervisible">
+  <h1> Update Account </h1>
+  <h2>First Name</h2><input [(ngModel)]='account.first_name' name="first_name">
+  <h2>Last Name</h2><input [(ngModel)]='account.last_name' name="last_name">
+  <h2>Username</h2><input [(ngModel)]='account.username' name="username">
+  <h2>Phone</h2><input [(ngModel)]='account.phone' name="phone">
+  <h2>Email</h2><input [(ngModel)]='account.email' name="email">
+  <button type="submit" class="btn btn-primary" >Submit</button>
+</form>
+</div>
+</div>
+<div >
+<button class='btn btn-primary' (click)="pendingProjects()">Pending Projects</button>
+<div >
+  <form *ngIf="project">
+    <div *ngIf="pendVis">
+<div *ngFor="let item of project; let idx = index">
+  <h2>Project {{ idx + 1 }}</h2>
+   <p>Project Title: {{ item.title }}</p>
+   <p>Description: {{ item.description }}</p>
+   <p>Category: {{ item.category }}</p>
+   <p>Fund Goal: {{ item.funds_needed }}</p>
+<button type="submit" class="btn btn-primary" (click)="approve(idx)">Submit</button>
+
+</div>
+</div>
+</form>
+</div>
+</div>
+<div>
+  <button class='btn btn-primary' (click)="getProjectInfo()">Projects</button>
+<div *ngIf="Projvisible">
+  <form  *ngIf="project; Projvisible">
+  <div *ngFor='let item of project; let idx = index'>
+  <!-- define a property (idx) to keep track of the index of each schedule. This will help us
+  identify the selected schedule. -->
+ <h2>Project {{ idx + 1 }}</h2>
+  <p>Project Title: {{ item.title }}</p><input [(ngModel)]='project.title' name="title">
+  <p>Description: {{ item.description }}</p><input [(ngModel)]='project.description' name="description">
+  <p>Category: {{ item.category }}</p><input [(ngModel)]='project.category' name="category">
+  <p>Funds Raised: {{ item.funded_amount }}</p>
+  <p>Fund Goal: {{ item.funds_needed }}</p><input [(ngModel)]='project.funds_needed' name="fundsNeeded">
+  <p>Approved: {{ item.approved }}</p>
+  <button type="submit" class="btn btn-primary" (click)="onSubmit2(idx)">Submit</button>
+</div>
+</form>
+</div>
+</div>

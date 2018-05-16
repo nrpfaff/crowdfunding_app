@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h2 class="modal-title">{{title}}</h2>
+</div>
+<div class="modal-body">
+
+  <h5>Do you want to approve the following project:</h5>
+  <p><strong>Title:</strong> {{title}}</p>
+  <p><strong>Description:</strong> {{description}}</p>
+  <p><strong>Category:</strong> {{category}}</p>
+  <p><strong>Funds Needed:</strong> {{funds_needed}}</p>
+
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-success" (click)="modalService.close('1')">Approve</button>
+  <button type="button" class="btn btn-deny" (click)="modalService.close('2')">Deny</button>
+  <button type="button" class="btn btn-danger" (click)="modalService.close('0')">Cancel</button>
+</div>
